@@ -196,6 +196,19 @@ const resetPassword = catchAsync(
     }
 )
 
+const googleLogin = catchAsync((req: Request, res: Response) => {
+    const redirectPath = req.query.redirect || "/dashboard";
+
+    const encodedRedirectPath = encodeURIComponent(redirectPath as string);
+
+    const callbackURL = `${envVars.BETTER_AUTH_URL}/api/v1/auth/google/success?redirect=${encodedRedirectPath}`;
+
+    res.render("googleRedirect", {
+        callbackURL : callbackURL,
+        betterAuthUrl : envVars.BETTER_AUTH_URL,
+    })
+})
+
 export const AuthController = {
     registerPatient,
     loginUser,
@@ -205,5 +218,6 @@ export const AuthController = {
     logoutUser,
     verifyEmail,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    googleLogin
 };
