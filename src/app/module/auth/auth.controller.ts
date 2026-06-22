@@ -246,6 +246,11 @@ const googleLoginSuccess = catchAsync(async (req: Request, res: Response) => {
     res.redirect(`${envVars.FRONTEND_URL}${finalRedirectPath}`);
 })
 
+const handleOAuthError = catchAsync((req: Request, res: Response) => {
+    const error = req.query.error as string || "oauth_failed";
+    res.redirect(`${envVars.FRONTEND_URL}/login?error=${error}`);
+})
+
 export const AuthController = {
     registerPatient,
     loginUser,
@@ -256,5 +261,7 @@ export const AuthController = {
     verifyEmail,
     forgetPassword,
     resetPassword,
-    googleLogin
+    googleLogin,
+    googleLoginSuccess,
+    handleOAuthError
 };

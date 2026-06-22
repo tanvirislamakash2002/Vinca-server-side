@@ -438,5 +438,6 @@ export const AuthService = {
     logoutUser,
     verifyEmail,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    googleLoginSuccess
 };
