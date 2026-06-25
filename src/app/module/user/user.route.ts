@@ -32,4 +32,9 @@ router.post("/create-doctor",
 
     UserController.createDoctor);
 
+
+router.post("/create-admin",
+    checkAuth(Role.SUPER_ADMIN, Role.ADMIN),
+    UserController.createAdmin);
+
 export const UserRoutes = router;
