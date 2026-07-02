@@ -14,5 +14,6 @@ router.post('/',
     multerUpload.single("file"), 
     validateRequest(SpecialtyValidation.createSpecialtyZodSchema),
     SpecialtyController.createSpecialty);
+router.get('/', SpecialtyController.getAllSpecialties);
 
 export const SpecialtyRoutes = router;
