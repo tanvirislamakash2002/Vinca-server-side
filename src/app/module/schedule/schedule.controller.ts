@@ -16,6 +16,18 @@ const createSchedule = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getAllSpecialties = catchAsync(
+    async (req: Request, res: Response) => {
+        const result = await SpecialtyService.getAllSpecialties();
+        sendResponse(res, {
+            httpStatusCode: 200,
+            success: true,
+            message: 'Specialties fetched successfully',
+            data: result
+        });
+    }
+)
 export const ScheduleController = {
-    createSchedule
+    createSchedule,
+    getAllSpecialties
 }
