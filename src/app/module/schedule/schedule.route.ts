@@ -7,6 +7,8 @@ import { ScheduleValidation } from "./schedule.validation";
 
 const router = Router();
 
+router.post('/', checkAuth(Role.ADMIN, Role.SUPER_ADMIN), validateRequest(ScheduleValidation.createScheduleZodSchema), ScheduleController.createSchedule);
+router.get('/', SpecialtyController.getAllSpecialties);
 router.delete('/:id', checkAuth(Role.ADMIN, Role.SUPER_ADMIN), SpecialtyController.deleteSpecialty);
 
 export const scheduleRoutes = router;
