@@ -5,29 +5,18 @@ import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 import { ScheduleService } from "./schedule.service";
 
-const createSchedule = catchAsync(async (req: Request, res: Response) => {
-    const payload = req.body;
-    const schedule = await ScheduleService.createSchedule(payload);
-    sendResponse(res, {
-        success: true,
-        httpStatusCode: status.CREATED,
-        message: 'Schedule created successfully',
-        data: schedule
-    });
-});
-
-const getAllSpecialties = catchAsync(
+const deleteSpecialty = catchAsync(
     async (req: Request, res: Response) => {
-        const result = await SpecialtyService.getAllSpecialties();
+        const { id } = req.params;
+        const result = await SpecialtyService.deleteSpecialty(id as string);
         sendResponse(res, {
             httpStatusCode: 200,
             success: true,
-            message: 'Specialties fetched successfully',
+            message: 'Specialty deleted successfully',
             data: result
         });
     }
 )
 export const ScheduleController = {
-    createSchedule,
-    getAllSpecialties
+    deleteSpecialty
 }
