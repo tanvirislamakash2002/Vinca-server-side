@@ -89,7 +89,17 @@ const getAllSchedules = async (query: IQueryParams) => {
     return result;
 }
 
+const deleteSchedule = async (id: string) => {
+    await prisma.schedule.delete({
+        where: {
+            id: id
+        }
+    });
+    return true;
+}
+
 export const ScheduleService = {
     createSchedule,
-    getAllSchedules
+    getAllSchedules,
+    deleteSchedule
 }
