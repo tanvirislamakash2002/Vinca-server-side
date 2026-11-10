@@ -55,5 +55,6 @@ const updateDoctor = catchAsync(
 
 export const DoctorController = {
     getAllDoctors,
-    getDoctorById
+    getDoctorById,
+    updateDoctor
 };
