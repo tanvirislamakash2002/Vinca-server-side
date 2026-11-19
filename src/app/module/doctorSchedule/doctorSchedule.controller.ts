@@ -18,6 +18,20 @@ const createMyDoctorSchedule = catchAsync(async (req: Request, res: Response) =>
 });
 
 
+const getMyDoctorSchedules = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user;
+    const query = req.query;
+    const result = await DoctorScheduleService.getMyDoctorSchedules(user, query as IQueryParams);
+    sendResponse(res, {
+        success: true,
+        httpStatusCode: status.OK,
+        message: 'Doctor schedules retrieved successfully',
+        data: result.data,
+        meta: result.meta
+    });
+});
+
 export const DoctorScheduleController = {
-    createMyDoctorSchedule
+    createMyDoctorSchedule,
+    getMyDoctorSchedules
 }

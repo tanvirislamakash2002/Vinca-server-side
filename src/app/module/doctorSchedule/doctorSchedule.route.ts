@@ -9,5 +9,6 @@ const router = Router();
 router.post("/create-my-doctor-schedule",
     checkAuth(Role.DOCTOR),
     DoctorScheduleController.createMyDoctorSchedule);
+router.get("/my-doctor-schedules", checkAuth(Role.DOCTOR), DoctorScheduleController.getMyDoctorSchedules);
 
 export const DoctorScheduleRoutes = router;
