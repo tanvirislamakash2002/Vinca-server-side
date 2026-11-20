@@ -39,7 +39,42 @@ const createMyDoctorSchedule = async (user: IRequestUser, payload: ICreateDoctor
 }
 
 
+const getMyDoctorSchedules = async (user : IRequestUser, query : IQueryParams) => {
+    const doctorData = await prisma.doctor.findUniqueOrThrow({
+        where:{
+            email : user.email
+        }
+    });
+    const queryBuilder = new QueryBuilder<DoctorSchedules, Prisma.DoctorSchedulesWhereInput, Prisma.DoctorSchedulesInclude>(prisma.doctorSchedules,
+    {
+    doctorId: doctorData.id,
+    ...query
+    }, 
+    {
+        filterableFields: doctorScheduleFilterableFields,
+        searchableFields: doctorScheduleSearchableFields
+    })
+    const doctorSchedules = await queryBuilder
+    .search()
+    .filter()
+    .paginate()
+    .include({
+        schedule: true,
+        doctor : {
+            include:{
+                user: true,
+            }
+        }
+    })
+    .sort()
+    .fields()
+    .dynamicInclude(doctorScheduleIncludeConfig)
+    .execute();
+    return doctorSchedules;
+}
+
 
 export const DoctorScheduleService = {
-    createMyDoctorSchedule
+    createMyDoctorSchedule,
+    getMyDoctorSchedules
 }
