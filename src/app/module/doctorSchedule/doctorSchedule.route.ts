@@ -11,5 +11,6 @@ router.post("/create-my-doctor-schedule",
     DoctorScheduleController.createMyDoctorSchedule);
 router.get("/my-doctor-schedules", checkAuth(Role.DOCTOR), DoctorScheduleController.getMyDoctorSchedules);
 router.get("/", checkAuth(Role.ADMIN, Role.SUPER_ADMIN), DoctorScheduleController.getAllDoctorSchedules);
+router.get("/:doctorId/schedule/:scheduleId", checkAuth(Role.ADMIN, Role.SUPER_ADMIN), DoctorScheduleController.getDoctorScheduleById);
 
 export const DoctorScheduleRoutes = router;
