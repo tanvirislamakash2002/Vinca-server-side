@@ -31,22 +31,17 @@ const getMyDoctorSchedules = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const getAllDoctorSchedules = async (query: IQueryParams) => {
-    const queryBuilder = new QueryBuilder<DoctorSchedules, Prisma.DoctorSchedulesWhereInput, Prisma.DoctorSchedulesInclude>(prisma.doctorSchedules, query, {
-        filterableFields: doctorScheduleFilterableFields,
-        searchableFields: doctorScheduleSearchableFields
-    })
-
-    const result = await queryBuilder
-        .search()
-        .filter()
-        .paginate()
-        .dynamicInclude(doctorScheduleIncludeConfig)
-        .sort()
-        .execute();
-
-    return result;
-}
+const getAllDoctorSchedules = catchAsync(async (req: Request, res: Response) => {
+    const query = req.query;
+    const result = await DoctorScheduleService.getAllDoctorSchedules(query as IQueryParams);
+    sendResponse(res, {
+        success: true,
+        httpStatusCode: status.OK,
+        message: 'All doctor schedules retrieved successfully',
+        data: result.data,
+        meta: result.meta
+    });
+});
 
 export const DoctorScheduleController = {
     createMyDoctorSchedule,
