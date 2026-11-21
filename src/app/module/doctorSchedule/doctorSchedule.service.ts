@@ -91,7 +91,26 @@ const getAllDoctorSchedules = async (query: IQueryParams) => {
     return result;
 }
 
+
+const getDoctorScheduleById = async (doctorId: string, scheduleId: string) => {
+    const doctorSchedule = await prisma.doctorSchedules.findUnique({
+        where: {
+            doctorId_scheduleId: {
+                doctorId: doctorId,
+                scheduleId: scheduleId
+            }
+        },
+        include: {
+            schedule: true,
+            doctor: true
+        }
+    });
+    return doctorSchedule;
+}
+
 export const DoctorScheduleService = {
     createMyDoctorSchedule,
-    getMyDoctorSchedules
+    getMyDoctorSchedules,
+    getAllDoctorSchedules,
+    getDoctorScheduleById
 }
