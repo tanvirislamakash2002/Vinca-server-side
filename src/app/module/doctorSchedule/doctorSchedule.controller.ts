@@ -71,5 +71,6 @@ export const DoctorScheduleController = {
     createMyDoctorSchedule,
     getMyDoctorSchedules,
     getAllDoctorSchedules,
-    getDoctorScheduleById
+    getDoctorScheduleById,
+    updateMyDoctorSchedule
 }
