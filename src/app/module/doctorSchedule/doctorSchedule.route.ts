@@ -15,4 +15,6 @@ router.get("/:doctorId/schedule/:scheduleId", checkAuth(Role.ADMIN, Role.SUPER_A
 router.patch("/update-my-doctor-schedule",
     checkAuth(Role.DOCTOR),
     DoctorScheduleController.updateMyDoctorSchedule);
+router.delete("/delete-my-doctor-schedule/:id", checkAuth(Role.DOCTOR), DoctorScheduleController.deleteMyDoctorSchedule);
+
 export const DoctorScheduleRoutes = router;
